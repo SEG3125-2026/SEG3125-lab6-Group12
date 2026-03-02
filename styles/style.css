@@ -4,9 +4,9 @@
 
 :root{
   --bg-accent-color: #C3110C;
-  --bg-secondary-color: #ffffff;
   --bg-primary-color: #280905;
   --bg-alert-color: #FFCE99;
+  --bg-secondary-color: #F2F2F2;
 }
 
 html {

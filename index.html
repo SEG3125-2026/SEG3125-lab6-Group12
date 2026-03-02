@@ -18,7 +18,7 @@
 			<p class="text-muted mt-2 hint">Click to view the homepage image.</p>
 		</div>
 		
-		<div class="alert alert-info shadow-sm mb-5 position-sticky top-0 z-3" role="alert" style="background-color: var(--bg-alert-color);">
+		<div class="alert shadow-sm mb-5 position-sticky top-0 z-3" role="alert" style="background-color: var(--bg-alert-color);">
 			<h4 class="alert-heading">Before you start</h4>
 			<p class="mb-3">This is a survey to collect feedback on the uOttawa website. Your feedback helps improve the uOttawa website experience. Estimated time 5 minutes. Please note that you will not be able to go to previous pages once you proceed.</p>
 			<div class="progress" style="height: 20px;">
@@ -37,8 +37,8 @@
 							<img src="images/UO-FrontPage.png" alt="uOttawa Homepage" class="img-fluid w-100">
 						</div>
 						<div class="modal-footer">
-							<a href="https://www.uottawa.ca/en" target="_blank" class="btn btn-primary">Visit Real Website</a>
-							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+							<a href="https://www.uottawa.ca/en" target="_blank" class="btn btn-primary" style="background-color: var(--bg-primary-color);"">Visit Real Website</a>
+							<button type="button" class="btn" data-bs-dismiss="modal" style="background-color: var(--bg-secondary-color);">Close</button>
 						</div>
 					</div>
 				</div>
@@ -53,12 +53,12 @@
 				<div class="card-body">
 					<div class="row g-3">
 						<div class="col-md-6">
-							<label class="form-label">First name:</label>
-							<input type="text" name="firstname" class="form-control">
+							<label class="form-label">First name<span class="text-danger">*</span></label>
+							<input type="text" name="firstname" class="form-control" required>
 						</div>
 						<div class="col-md-6">
-							<label class="form-label">Last name:</label>
-							<input type="text" name="lastname" class="form-control">
+							<label class="form-label">Last name<span class="text-danger">*</span></label>
+							<input type="text" name="lastname" class="form-control" required>
 						</div>
 					</div>
 				</div>
@@ -261,43 +261,6 @@
 		</form>
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-	<script>
-		let currentPage = 1;
-		const totalPages = 5;
-
-		function showPage(page) {
-			for (let i = 1; i <= totalPages; i++) {
-				const elements = document.querySelectorAll('.page' + i);
-				elements.forEach(el => el.style.display = 'none');
-			}
-			const currentElements = document.querySelectorAll('.page' + page);
-			currentElements.forEach(el => el.style.display = 'block');
-
-			const progressBar = document.getElementById('surveyProgressBar');
-			if (progressBar) {
-				const percentage = (page / totalPages) * 100;
-				progressBar.style.width = percentage + '%';
-				progressBar.setAttribute('aria-valuenow', page);
-				progressBar.textContent = `Page ${page} of ${totalPages}`;
-			}
-
-			if (page === totalPages) {
-				document.getElementById('nextBtn').style.display = 'none';
-				document.getElementById('submitButton').style.display = 'inline-block';
-			} else {
-				document.getElementById('nextBtn').style.display = 'inline-block';
-				document.getElementById('submitButton').style.display = 'none';
-			}
-		}
-
-		function changePage(step) {
-			currentPage += step;
-			if (currentPage > totalPages) currentPage = totalPages;
-			
-			showPage(currentPage);
-			document.getElementById('myform').scrollIntoView({ behavior: 'smooth', block: 'start' });
-		}
-		showPage(currentPage);
-	</script>
+	<script src="script.js"></script>
   </body>
 </html> 
