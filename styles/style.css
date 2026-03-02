@@ -2,16 +2,15 @@
    color picker www.w3schools.com/colors/colors_picker.asp
 */
 
-/* :root{
-  --background-color: #ECECEC;
-  --primary-color: #84934A;
-  --secondary-color: #656D3F;
-  --accent-color: #492828;
+:root{
+  --bg-accent-color: #C3110C;
+  --bg-secondary-color: #ffffff;
+  --bg-primary-color: #280905;
+  --bg-alert-color: #FFCE99;
 }
-  */
 
 html {
-  font-family: 'sans serif', Arial, Helvetica, sans-serif;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   display: flex;
   justify-content: center;
 }

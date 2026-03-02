@@ -18,11 +18,11 @@
 			<p class="text-muted mt-2 hint">Click to view the homepage image.</p>
 		</div>
 		
-		<div class="alert alert-info shadow-sm mb-5 position-sticky top-0 z-3" role="alert">
+		<div class="alert alert-info shadow-sm mb-5 position-sticky top-0 z-3" role="alert" style="background-color: var(--bg-alert-color);">
 			<h4 class="alert-heading">Before you start</h4>
 			<p class="mb-3">This is a survey to collect feedback on the uOttawa website. Your feedback helps improve the uOttawa website experience. Estimated time 5 minutes. Please note that you will not be able to go to previous pages once you proceed.</p>
 			<div class="progress" style="height: 20px;">
-				<div id="surveyProgressBar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 20%;" aria-valuenow="1" aria-valuemin="1" aria-valuemax="5">Page 1 of 5</div>
+				<div id="surveyProgressBar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 20%; background-color: var(--bg-accent-color);" aria-valuenow="1" aria-valuemin="1" aria-valuemax="5">Page 1 of 5</div>
 			</div>
 		</div>
 		<!-- Bootstrap Modal -->
@@ -47,7 +47,7 @@
 		<form id="myform" action="index.php">
 			<!-- Question Personal Information -->
 			<div class="card mb-4 shadow-sm question page1">
-				<div class="card-header bg-primary text-white">
+				<div class="card-header text-white" style="background-color: var(--bg-primary-color);">
 					<h2 class="h5 mb-0">Personal Information</h2>
 				</div>
 				<div class="card-body">
@@ -251,7 +251,7 @@
 
 			<!-- Navigation Buttons -->
 			<div class="d-flex justify-content-end mb-4" id="navButtons">
-				<button type="button" id="nextBtn" class="btn btn-primary btn-lg px-5" onclick="changePage(1)">Next Page</button>
+				<button type="button" id="nextBtn" class="btn btn-primary btn-lg px-5" onclick="changePage(1)" style="background-color: var(--bg-primary-color);">Next Page</button>
 				<button id="submitButton" type="submit" class="btn btn-success btn-lg px-5" style="display: none;">
 					Submit your Questionnaire
 				</button>
