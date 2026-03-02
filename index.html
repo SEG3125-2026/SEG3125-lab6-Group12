@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+	<link href="styles/style.css" rel="stylesheet" type="text/css">
+    <title>Team 12 Survey</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  </head>
+
+  <body class="bg-light">
+	<img src="images/UO-background.jpg" alt="uOttawa background" class="img-fluid fixed-top h-100" style="opacity: 0.3; z-index: -1;">
+	<div class="container bg-white my-5 p-4 rounded shadow">
+		<h1 class="display-4 text-center mb-4">The uOttawa Website Survey</h1>
+		<div class="text-center mb-5 hero">
+			<a href="#" class="d-inline-block" data-bs-toggle="modal" data-bs-target="#imageModal">
+				<img src="images/UO-FrontPage.png" alt="uOttawa Homepage" class="img-fluid rounded shadow" style="max-width: 600px; cursor: pointer;">
+			</a>
+			<p class="text-muted mt-2 hint">Click to view the homepage image.</p>
+		</div>
+		
+		<div class="alert alert-info shadow-sm mb-5 position-sticky top-0 z-3" role="alert">
+			<h4 class="alert-heading">Before you start</h4>
+			<p class="mb-3">This is a survey to collect feedback on the uOttawa website. Your feedback helps improve the uOttawa website experience. Estimated time 5 minutes. Please note that you will not be able to go to previous pages once you proceed.</p>
+			<div class="progress" style="height: 20px;">
+				<div id="surveyProgressBar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 20%;" aria-valuenow="1" aria-valuemin="1" aria-valuemax="5">Page 1 of 5</div>
+			</div>
+		</div>
+		<!-- Bootstrap Modal -->
+			<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-xl modal-dialog-centered">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="imageModalLabel">uOttawa Homepage</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body text-center p-0">
+							<img src="images/UO-FrontPage.png" alt="uOttawa Homepage" class="img-fluid w-100">
+						</div>
+						<div class="modal-footer">
+							<a href="https://www.uottawa.ca/en" target="_blank" class="btn btn-primary">Visit Real Website</a>
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		<form id="myform" action="index.php">
+			<!-- Question Personal Information -->
+			<div class="card mb-4 shadow-sm question page1">
+				<div class="card-header bg-primary text-white">
+					<h2 class="h5 mb-0">Personal Information</h2>
+				</div>
+				<div class="card-body">
+					<div class="row g-3">
+						<div class="col-md-6">
+							<label class="form-label">First name:</label>
+							<input type="text" name="firstname" class="form-control">
+						</div>
+						<div class="col-md-6">
+							<label class="form-label">Last name:</label>
+							<input type="text" name="lastname" class="form-control">
+						</div>
+					</div>
+				</div>
+			</div>	
+
+			<!-- Question 1 -->
+			<div class="card mb-4 shadow-sm question page2">
+				<div class="card-body">
+					<h2 class="h5 card-title">Question 1</h2>
+					<p class="card-text">What was the primary goal or specific information you were looking for during your visit to the website today?</p>
+					<textarea name="q1_goal" rows="4" class="form-control"></textarea>
+				</div>
+			</div>
+
+			<!-- Question 2 -->
+			<div class="card mb-4 shadow-sm question page2">
+				<div class="card-body">
+					<h2 class="h5 card-title">Question 2</h2>
+					<p class="card-text">How would you rate the overall visual layout and modern design of the website?</p>
+					
+					<div class="mb-3 answers">
+						<div class="form-check">
+							<input class="form-check-input" id="q2_excellent" type="radio" name="layout_rating" value="Excellent">
+							<label class="form-check-label" for="q2_excellent">Excellent</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" id="q2_good" type="radio" name="layout_rating" value="Good">
+							<label class="form-check-label" for="q2_good">Good</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" id="q2_fair" type="radio" name="layout_rating" value="Fair">
+							<label class="form-check-label" for="q2_fair">Fair</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" id="q2_poor" type="radio" name="layout_rating" value="Poor">
+							<label class="form-check-label" for="q2_poor">Poor</label>
+						</div>
+					</div>
+					
+					<label class="form-label">Comments:</label>
+					<textarea name="q2_comments" rows="3" class="form-control"></textarea>
+				</div>
+			</div>
+
+			<!-- Question 3 -->
+			<div class="card mb-4 shadow-sm question page3">
+				<div class="card-body">
+					<h2 class="h5 card-title">Question 3</h2>
+					<p class="card-text">Which portal or service do you access most frequently through the uOttawa homepage?</p>
+					
+					<div class="mb-3">
+						<select name="q3_portal" class="form-select">
+							<option value="uoZone" selected="selected">uoZone</option>
+							<option value="Brightspace">Brightspace</option>
+							<option value="UNIWeb">UNIWeb</option>
+							<option value="Campus-Maps">Campus Maps</option>
+							<option value="VirtuO">VirtuO (Employee Portal)</option>
+							<option value="None">None of the above</option>
+						</select>
+					</div>
+					
+					<label class="form-label">Comments:</label>
+					<textarea name="q3_comments" rows="3" class="form-control"></textarea>
+				</div>
+			</div>
+
+			<!-- Question 4 -->
+			<div class="card mb-4 shadow-sm question page3">
+				<div class="card-body">
+					<h2 class="h5 card-title">Question 4</h2>
+					<p class="card-text">Which sections of the website did you visit or interact with today?</p>
+					
+					<div class="mb-3 answers">
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" name="Academic" value="Academic" id="q4_academic">
+							<label class="form-check-label" for="q4_academic">Academic Essentials (Enrolment, Timetables)</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" name="CampusLife" value="CampusLife" id="q4_campus">
+							<label class="form-check-label" for="q4_campus">Campus Life (Dining Hall, Housing, Sustainability)</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" name="Research" value="Research" id="q4_research">
+							<label class="form-check-label" for="q4_research">Research and Innovation</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" name="Faculties" value="Faculties" id="q4_faculties">
+							<label class="form-check-label" for="q4_faculties">Faculties and Departments</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" name="AboutUs" value="AboutUs" id="q4_about">
+							<label class="form-check-label" for="q4_about">About Us (News, Careers, Governance)</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" name="Library" value="Library" id="q4_library">
+							<label class="form-check-label" for="q4_library">Library Services</label>
+						</div>
+					</div>
+					
+					<label class="form-label">Comments:</label>
+					<textarea name="q4_comments" rows="3" class="form-control"></textarea>
+				</div>
+			</div>
+
+			<!-- Question 5 -->
+			<div class="card mb-4 shadow-sm question page4" id="q5">
+				<div class="card-body">
+					<h2 class="h5 card-title">Question 5</h2>
+					<p class="card-text">How effective do you find the website's navigation and ease of use?</p>
+					
+					<div class="mb-3 answers">
+						<div class="form-check">
+							<input class="form-check-input" id="q5_excellent" type="radio" name="navigation_rating" value="Excellent">
+							<label class="form-check-label" for="q5_excellent">Excellent</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" id="q5_good" type="radio" name="navigation_rating" value="Good">
+							<label class="form-check-label" for="q5_good">Good</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" id="q5_fair" type="radio" name="navigation_rating" value="Fair">
+							<label class="form-check-label" for="q5_fair">Fair</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" id="q5_poor" type="radio" name="navigation_rating" value="Poor">
+							<label class="form-check-label" for="q5_poor">Poor</label>
+						</div>
+					</div>
+					
+					<label class="form-label">Comments:</label>
+					<textarea name="q5_comments" rows="3" class="form-control"></textarea>
+				</div>
+			</div>
+
+			<!-- Question 6-->
+			<div class="card mb-4 shadow-sm question page4" id="q6">
+				<div class="card-body">
+					<h2 class="h5 card-title">Question 6</h2>
+					<p class="card-text">Please provide any additional feedback or specific suggestions on how the University of Ottawa website could be improved to better serve your needs.</p>
+					<textarea name="q6_feedback" rows="4" class="form-control"></textarea>
+				</div>
+			</div>
+
+			<!-- Question 7-->
+			<div class="card mb-4 shadow-sm question page5" id="q7">
+				<div class="card-body">
+					<h2 class="h5 card-title">Question 7</h2>
+					<p class="card-text">In the News page image, how clear are the headlines and dates?</p>
+					
+					<div class="mb-3 answers">
+						<div class="form-check">
+							<input class="form-check-input" id="q7_very_clear" type="radio" name="news_clarity" value="Very clear">
+							<label class="form-check-label" for="q7_very_clear">Very clear</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" id="q7_somewhat_clear" type="radio" name="news_clarity" value="Somewhat clear">
+							<label class="form-check-label" for="q7_somewhat_clear">Somewhat clear</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" id="q7_not_clear" type="radio" name="news_clarity" value="Not clear">
+							<label class="form-check-label" for="q7_not_clear">Not clear</label>
+						</div>
+					</div>
+					
+					<label class="form-label">Comments:</label>
+					<textarea name="q7_comments" rows="3" class="form-control"></textarea>
+				</div>
+			</div>
+
+			<!-- Question 8-->
+			<div class="card mb-4 shadow-sm question page5" id="q8">
+				<div class="card-body">
+					<h2 class="h5 card-title">Question 8</h2>
+					<p class="card-text">In the Campus Life image, what do you notice first on the page?</p>
+					
+					<div class="mb-3">
+						<select name="q8_campus_focus" class="form-select">
+							<option value="HeroImage" selected="selected">Hero image and title</option>
+							<option value="WelcomeText">Intro text under the title</option>
+							<option value="SeasonalFeature">Seasonal feature (e.g., Winter Welcome)</option>
+							<option value="CallToAction">Call-to-action button</option>
+							<option value="Other">Other</option>
+						</select>
+					</div>
+					
+					<label class="form-label">Comments:</label>
+					<textarea name="q8_comments" rows="3" class="form-control"></textarea>
+				</div>
+			</div>
+
+			<!-- Navigation Buttons -->
+			<div class="d-flex justify-content-end mb-4" id="navButtons">
+				<button type="button" id="nextBtn" class="btn btn-primary btn-lg px-5" onclick="changePage(1)">Next Page</button>
+				<button id="submitButton" type="submit" class="btn btn-success btn-lg px-5" style="display: none;">
+					Submit your Questionnaire
+				</button>
+			</div>
+				
+			<p id="signature" class="text-center text-muted">Website designed by Team 12</p>
+		</form>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+	<script>
+		let currentPage = 1;
+		const totalPages = 5;
+
+		function showPage(page) {
+			for (let i = 1; i <= totalPages; i++) {
+				const elements = document.querySelectorAll('.page' + i);
+				elements.forEach(el => el.style.display = 'none');
+			}
+			const currentElements = document.querySelectorAll('.page' + page);
+			currentElements.forEach(el => el.style.display = 'block');
+
+			const progressBar = document.getElementById('surveyProgressBar');
+			if (progressBar) {
+				const percentage = (page / totalPages) * 100;
+				progressBar.style.width = percentage + '%';
+				progressBar.setAttribute('aria-valuenow', page);
+				progressBar.textContent = `Page ${page} of ${totalPages}`;
+			}
+
+			if (page === totalPages) {
+				document.getElementById('nextBtn').style.display = 'none';
+				document.getElementById('submitButton').style.display = 'inline-block';
+			} else {
+				document.getElementById('nextBtn').style.display = 'inline-block';
+				document.getElementById('submitButton').style.display = 'none';
+			}
+		}
+
+		function changePage(step) {
+			currentPage += step;
+			if (currentPage > totalPages) currentPage = totalPages;
+			
+			showPage(currentPage);
+			document.getElementById('myform').scrollIntoView({ behavior: 'smooth', block: 'start' });
+		}
+		showPage(currentPage);
+	</script>
+  </body>
+</html> 

@@ -1,0 +1,17 @@
+/* Style sheet
+   color picker www.w3schools.com/colors/colors_picker.asp
+*/
+
+/* :root{
+  --background-color: #ECECEC;
+  --primary-color: #84934A;
+  --secondary-color: #656D3F;
+  --accent-color: #492828;
+}
+  */
+
+html {
+  font-family: 'sans serif', Arial, Helvetica, sans-serif;
+  display: flex;
+  justify-content: center;
+}
