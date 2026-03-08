@@ -12,10 +12,28 @@
 	<div class="container bg-white my-5 p-4 rounded shadow">
 		<h1 class="display-4 text-center mb-4">The uOttawa Website Survey</h1>
 		<div class="text-center mb-5 hero">
-			<a href="#" class="d-inline-block" data-bs-toggle="modal" data-bs-target="#imageModal">
-				<img src="images/UO-FrontPage.png" alt="uOttawa Homepage" class="img-fluid rounded shadow" style="max-width: 600px; cursor: pointer;">
-			</a>
-			<p class="text-muted mt-2 hint">Click to view the homepage image.</p>
+			<div id="defaultHero">
+				<a href="#" class="d-inline-block hero-image-trigger" data-bs-toggle="modal" data-bs-target="#imageModal" data-title="uOttawa Homepage" data-src="images/UO-FrontPage.png" data-alt="uOttawa Homepage" data-url="https://www.uottawa.ca/en">
+					<img id="heroMainImage" src="images/UO-FrontPage.png" alt="uOttawa Homepage" class="img-fluid rounded shadow" style="max-width: 600px; cursor: pointer;">
+				</a>
+				<p class="text-muted mt-2 hint">Click to view the homepage image.</p>
+			</div>
+			<div id="questionPageHero" class="d-none">
+				<div class="row justify-content-center g-3">
+					<div class="col-md-6">
+						<a href="#" class="d-inline-block hero-image-trigger" data-bs-toggle="modal" data-bs-target="#imageModal" data-title="uOttawa News Page" data-src="images/UO-News.png" data-alt="uOttawa News page" data-url="https://www.uottawa.ca/en/gazette-news">
+							<img src="images/UO-News.png" alt="uOttawa News page" class="img-fluid rounded shadow" style="cursor: pointer;">
+						</a>
+						<p class="text-muted mt-2 mb-0">uOttawa News Page</p>
+					</div>
+					<div class="col-md-6">
+						<a href="#" class="d-inline-block hero-image-trigger" data-bs-toggle="modal" data-bs-target="#imageModal" data-title="uOttawa Campus Life Page" data-src="images/UO-CampusLife.png" data-alt="uOttawa Campus Life page" data-url="https://www.uottawa.ca/campus-life/">
+							<img src="images/UO-CampusLife.png" alt="uOttawa Campus Life page" class="img-fluid rounded shadow" style="cursor: pointer;">
+						</a>
+						<p class="text-muted mt-2 mb-0">uOttawa Campus Life Page</p>
+					</div>
+				</div>
+			</div>
 		</div>
 		
 		<div class="alert shadow-sm mb-5 position-sticky top-0 z-3" role="alert" style="background-color: var(--bg-alert-color);">
@@ -34,17 +52,17 @@
 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 						</div>
 						<div class="modal-body text-center p-0">
-							<img src="images/UO-FrontPage.png" alt="uOttawa Homepage" class="img-fluid w-100">
+							<img id="modalImage" src="images/UO-FrontPage.png" alt="uOttawa Homepage" class="img-fluid w-100">
 						</div>
 						<div class="modal-footer">
-							<a href="https://www.uottawa.ca/en" target="_blank" class="btn btn-primary" style="background-color: var(--bg-primary-color);"">Visit Real Website</a>
+							<a id="modalVisitLink" href="https://www.uottawa.ca/en" target="_blank" class="btn btn-primary" style="background-color: var(--bg-primary-color);">Visit Real Website</a>
 							<button type="button" class="btn" data-bs-dismiss="modal" style="background-color: var(--bg-secondary-color);">Close</button>
 						</div>
 					</div>
 				</div>
 			</div>
 
-		<form id="myform" action="index.php">
+		<form id="myform" action="/api/survey" method="post">
 			<!-- Question Personal Information -->
 			<div class="card mb-4 shadow-sm question page1">
 				<div class="card-header text-white" style="background-color: var(--bg-primary-color);">
@@ -69,7 +87,7 @@
 				<div class="card-body">
 					<h2 class="h5 card-title">Question 1</h2>
 					<p class="card-text">What was the primary goal or specific information you were looking for during your visit to the website today?</p>
-					<textarea name="q1_goal" rows="4" class="form-control"></textarea>
+					<textarea name="q1_goal" rows="4" class="form-control" required></textarea>
 				</div>
 			</div>
 
@@ -81,7 +99,7 @@
 					
 					<div class="mb-3 answers">
 						<div class="form-check">
-							<input class="form-check-input" id="q2_excellent" type="radio" name="layout_rating" value="Excellent">
+							<input class="form-check-input" id="q2_excellent" type="radio" name="layout_rating" value="Excellent" required>
 							<label class="form-check-label" for="q2_excellent">Excellent</label>
 						</div>
 						<div class="form-check">
@@ -110,7 +128,7 @@
 					<p class="card-text">Which portal or service do you access most frequently through the uOttawa homepage?</p>
 					
 					<div class="mb-3">
-						<select name="q3_portal" class="form-select">
+						<select name="q3_portal" class="form-select" required>
 							<option value="uoZone" selected="selected">uoZone</option>
 							<option value="Brightspace">Brightspace</option>
 							<option value="UNIWeb">UNIWeb</option>
@@ -171,7 +189,7 @@
 					
 					<div class="mb-3 answers">
 						<div class="form-check">
-							<input class="form-check-input" id="q5_excellent" type="radio" name="navigation_rating" value="Excellent">
+							<input class="form-check-input" id="q5_excellent" type="radio" name="navigation_rating" value="Excellent" required>
 							<label class="form-check-label" for="q5_excellent">Excellent</label>
 						</div>
 						<div class="form-check">
@@ -210,7 +228,7 @@
 					
 					<div class="mb-3 answers">
 						<div class="form-check">
-							<input class="form-check-input" id="q7_very_clear" type="radio" name="news_clarity" value="Very clear">
+							<input class="form-check-input" id="q7_very_clear" type="radio" name="news_clarity" value="Very clear" required>
 							<label class="form-check-label" for="q7_very_clear">Very clear</label>
 						</div>
 						<div class="form-check">
@@ -235,7 +253,7 @@
 					<p class="card-text">In the Campus Life image, what do you notice first on the page?</p>
 					
 					<div class="mb-3">
-						<select name="q8_campus_focus" class="form-select">
+						<select name="q8_campus_focus" class="form-select" required>
 							<option value="HeroImage" selected="selected">Hero image and title</option>
 							<option value="WelcomeText">Intro text under the title</option>
 							<option value="SeasonalFeature">Seasonal feature (e.g., Winter Welcome)</option>

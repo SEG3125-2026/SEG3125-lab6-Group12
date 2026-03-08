@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Survey Analysis</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-light">
+  <div class="container my-4">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
+      <h1 class="mb-0">Survey Analyst Dashboard</h1>
+      <div class="d-flex gap-2">
+        <button id="clearBtn" class="btn btn-outline-danger">Clear All Responses</button>
+        <a href="/niceSurvey" class="btn btn-outline-primary">Back to Survey</a>
+      </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+      <div class="col-lg-6"><div class="card shadow-sm"><div class="card-body"><h2 class="h5">Layout Rating</h2><canvas id="layoutChart" aria-label="Layout rating chart"></canvas></div></div></div>
+      <div class="col-lg-6"><div class="card shadow-sm"><div class="card-body"><h2 class="h5">Portal Usage</h2><canvas id="portalChart" aria-label="Portal usage chart"></canvas></div></div></div>
+      <div class="col-lg-6"><div class="card shadow-sm"><div class="card-body"><h2 class="h5">Navigation Rating</h2><canvas id="navigationChart" aria-label="Navigation chart"></canvas></div></div></div>
+      <div class="col-lg-6"><div class="card shadow-sm"><div class="card-body"><h2 class="h5">News Clarity</h2><canvas id="newsChart" aria-label="News clarity chart"></canvas></div></div></div>
+      <div class="col-lg-6"><div class="card shadow-sm"><div class="card-body"><h2 class="h5">Campus Focus</h2><canvas id="campusChart" aria-label="Campus focus chart"></canvas></div></div></div>
+      <div class="col-lg-6"><div class="card shadow-sm"><div class="card-body"><h2 class="h5">Sections Visited</h2><canvas id="sectionsChart" aria-label="Sections visited chart"></canvas></div></div></div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h2 class="h5">Comments</h2>
+        <ul class="list-group" id="commentsList"></ul>
+      </div>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h2 class="h5">Latest Responses</h2>
+        <div class="table-responsive">
+          <table class="table table-striped table-sm" id="responsesTable">
+            <thead>
+              <tr>
+                <th scope="col">Time</th>
+                <th scope="col">Name</th>
+                <th scope="col">Goal</th>
+                <th scope="col">Layout</th>
+                <th scope="col">Portal</th>
+                <th scope="col">Sections</th>
+                <th scope="col">Navigation</th>
+                <th scope="col">Details</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="responseModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Full Response</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <pre id="responseJson" class="mb-0"></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <script>
+    // https://stackoverflow.com/questions/72975580/how-to-run-js-function-in-ejs-template-express-ejs-and-uikit
+    const initialData = <%- initialData %>;
+    const charts = {};
+    let latestResponses = [];
+
+    function labelsAndValues(items, labelKey) {
+      return {
+        labels: items.map((item) => item[labelKey]),
+        values: items.map((item) => item.count)
+      };
+    }
+
+    function makeChart(canvasId, type, data, key, title) {
+      const { labels, values } = labelsAndValues(data, key);
+      charts[canvasId] = new Chart(document.getElementById(canvasId), {
+        type,
+        data: {
+          labels,
+          datasets: [{
+            label: title,
+            data: values,
+            backgroundColor: ['#7b1e1f', '#c3110c', '#cc8b61', '#f4a252', '#5b8e7d', '#4f6d7a', '#2f4858']
+          }]
+        }
+      });
+    }
+
+    function updateChart(canvasId, data, key) {
+      const chart = charts[canvasId];
+      if (!chart) return;
+      const { labels, values } = labelsAndValues(data, key);
+      chart.data.labels = labels;
+      chart.data.datasets[0].data = values;
+      chart.update();
+    }
+
+    function extractComments(response) {
+      const comments = [];
+      const pushIfThere = (question, context, text) => {
+        if (!text || !text.trim()) return;
+        comments.push({
+          question,
+          context: context || '-',
+          text: text.trim()
+        });
+      };
+      pushIfThere('Q2: Visual layout rating', `Selected: ${response.layout_rating || '-'}`, response.q2_comments);
+      pushIfThere('Q3: Portal usage', `Selected: ${response.q3_portal || '-'}`, response.q3_comments);
+      pushIfThere('Q4: Sections visited', `Selected: ${(response.sections_visited || []).join(', ') || '-'}`, response.q4_comments);
+      pushIfThere('Q5: Navigation rating', `Selected: ${response.navigation_rating || '-'}`, response.q5_comments);
+      pushIfThere('Q6: Additional feedback', 'Open feedback', response.q6_feedback);
+      pushIfThere('Q7: News clarity', `Selected: ${response.news_clarity || '-'}`, response.q7_comments);
+      pushIfThere('Q8: Campus focus', `Selected: ${response.q8_campus_focus || '-'}`, response.q8_comments);
+      return comments;
+    }
+
+    function renderComments(responses) {
+      const commentsList = document.getElementById('commentsList');
+      commentsList.innerHTML = '';
+
+      const comments = [];
+      [...responses].reverse().forEach((response) => {
+        const name = `${response.participant.firstname} ${response.participant.lastname}`.trim() || 'Anonymous';
+        extractComments(response).forEach((comment) => {
+          comments.push({
+            name,
+            submittedAt: response.submittedAt,
+            question: comment.question,
+            context: comment.context,
+            comment: comment.text
+          });
+        });
+      });
+
+      if (comments.length === 0) {
+        const li = document.createElement('li');
+        li.className = 'list-group-item text-muted';
+        li.textContent = 'No comments submitted yet.';
+        commentsList.appendChild(li);
+        return;
+      }
+
+      comments.slice(0, 30).forEach((entry) => {
+        const li = document.createElement('li');
+        li.className = 'list-group-item';
+        li.innerHTML = `<strong>${entry.name}</strong> <small class="text-muted">(${new Date(entry.submittedAt).toLocaleString()})</small><br><span class="fw-semibold">${entry.question}</span><br><span class="text-muted">${entry.context}</span><br>${entry.comment}`;
+        commentsList.appendChild(li);
+      });
+    }
+
+    function openResponse(index) {
+      const response = latestResponses[index];
+      if (!response) return;
+      document.getElementById('responseJson').textContent = JSON.stringify(response, null, 2);
+      const modal = new bootstrap.Modal(document.getElementById('responseModal'));
+      modal.show();
+    }
+
+    function renderResponses(responses) {
+      latestResponses = [...responses].reverse().slice(0, 20);
+      const tbody = document.querySelector('#responsesTable tbody');
+      tbody.innerHTML = '';
+
+      latestResponses.forEach((response, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${new Date(response.submittedAt).toLocaleString()}</td>
+          <td>${response.participant.firstname} ${response.participant.lastname}</td>
+          <td>${response.q1_goal || '-'}</td>
+          <td>${response.layout_rating || '-'}</td>
+          <td>${response.q3_portal || '-'}</td>
+          <td>${(response.sections_visited || []).join(', ') || '-'}</td>
+          <td>${response.navigation_rating || '-'}</td>
+          <td><button class="btn btn-sm btn-outline-dark" data-index="${index}">View</button></td>
+        `;
+        tbody.appendChild(row);
+      });
+
+      tbody.querySelectorAll('button[data-index]').forEach((button) => {
+        button.addEventListener('click', () => openResponse(Number(button.dataset.index)));
+      });
+    }
+
+    function renderAll(data) {
+      const totals = data.totals;
+      updateChart('layoutChart', totals.layout, 'layout_rating');
+      updateChart('portalChart', totals.portal, 'portal_usage');
+      updateChart('navigationChart', totals.navigation, 'navigation_rating');
+      updateChart('newsChart', totals.news, 'news_clarity');
+      updateChart('campusChart', totals.campusFocus, 'campus_focus');
+      updateChart('sectionsChart', totals.sections, 'section');
+      renderResponses(data.responses);
+      renderComments(data.responses);
+    }
+
+    function init(data) {
+      const totals = data.totals;
+      makeChart('layoutChart', 'pie', totals.layout, 'layout_rating', 'Layout Rating');
+      makeChart('portalChart', 'bar', totals.portal, 'portal_usage', 'Portal Usage');
+      makeChart('navigationChart', 'pie', totals.navigation, 'navigation_rating', 'Navigation Rating');
+      makeChart('newsChart', 'doughnut', totals.news, 'news_clarity', 'News Clarity');
+      makeChart('campusChart', 'bar', totals.campusFocus, 'campus_focus', 'Campus Focus');
+      makeChart('sectionsChart', 'bar', totals.sections, 'section', 'Sections Visited');
+      renderResponses(data.responses);
+      renderComments(data.responses);
+    }
+
+    async function refreshData() {
+      const response = await fetch('/api/results');
+      if (!response.ok) return;
+      const data = await response.json();
+      renderAll(data);
+    }
+
+    async function clearData() {
+      const confirmed = window.confirm('Do you want to clear all saved survey responses and chart data?');
+      if (!confirmed) return;
+
+      const clearBtn = document.getElementById('clearBtn');
+      clearBtn.disabled = true;
+      try {
+        const response = await fetch('/api/results', { method: 'DELETE' });
+        if (!response.ok) {
+          throw new Error('Failed to clear the data');
+        }
+        await refreshData();
+      } catch (error) {
+        alert(error.message);
+      } finally {
+        clearBtn.disabled = false;
+      }
+    }
+    document.getElementById('clearBtn').addEventListener('click', clearData);
+    init(initialData);
+    setInterval(refreshData, 1000);
+  </script>
+</body>
+</html>

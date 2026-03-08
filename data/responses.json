@@ -1,0 +1,71 @@
+[
+  {
+    "submittedAt": "2026-03-08T19:26:39.648Z",
+    "participant": {
+      "firstname": "Test1",
+      "lastname": "1"
+    },
+    "q1_goal": "Looking",
+    "layout_rating": "Fair",
+    "q2_comments": "",
+    "q3_portal": "uoZone",
+    "q3_comments": "123",
+    "sections_visited": [
+      "Research"
+    ],
+    "q4_comments": "",
+    "navigation_rating": "Good",
+    "q5_comments": "123",
+    "q6_feedback": "123",
+    "news_clarity": "Somewhat clear",
+    "q7_comments": "",
+    "q8_campus_focus": "HeroImage",
+    "q8_comments": ""
+  },
+  {
+    "submittedAt": "2026-03-08T19:27:02.451Z",
+    "participant": {
+      "firstname": "Test",
+      "lastname": "2"
+    },
+    "q1_goal": "123",
+    "layout_rating": "Good",
+    "q2_comments": "",
+    "q3_portal": "uoZone",
+    "q3_comments": "444",
+    "sections_visited": [
+      "Library"
+    ],
+    "q4_comments": "",
+    "navigation_rating": "Fair",
+    "q5_comments": "",
+    "q6_feedback": "",
+    "news_clarity": "Very clear",
+    "q7_comments": "",
+    "q8_campus_focus": "SeasonalFeature",
+    "q8_comments": ""
+  },
+  {
+    "submittedAt": "2026-03-08T19:27:24.832Z",
+    "participant": {
+      "firstname": "Test",
+      "lastname": "3"
+    },
+    "q1_goal": "2913",
+    "layout_rating": "Poor",
+    "q2_comments": "",
+    "q3_portal": "uoZone",
+    "q3_comments": "444",
+    "sections_visited": [
+      "Research"
+    ],
+    "q4_comments": "",
+    "navigation_rating": "Excellent",
+    "q5_comments": "",
+    "q6_feedback": "123",
+    "news_clarity": "Not clear",
+    "q7_comments": "55",
+    "q8_campus_focus": "CallToAction",
+    "q8_comments": ""
+  }
+]
